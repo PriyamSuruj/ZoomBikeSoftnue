@@ -144,6 +144,250 @@
             max-height: 300px;
             overflow-y: auto;
         }
+        /* Add these new styles */
+        .bike-card {
+            position: relative;
+            padding-top: 100px;
+            margin-top: 40px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .bike-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 0, 0.1);
+            box-shadow: 0 0 30px rgba(255, 255, 0, 0.2);
+            border-radius: 25px;
+        }
+        .bike-card .card {
+            border-radius: 25px;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: white;
+            height: 100%;
+        }
+        .bike-card .bike-image {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            z-index: 1;
+            transition: transform 0.3s ease;
+            border-radius: 20px;
+            padding: 10px;
+        }
+        .bike-card:hover .bike-image {
+            transform: translateX(-50%) scale(1.05);
+        }
+        .bike-card .card-body {
+            padding-top: 100px;
+            background: white;
+            border-radius: 25px;
+        }
+        .bike-card .btn {
+            border: none;
+        }
+        .bike-card .whatsapp-overlay {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #25D366;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s ease;
+            z-index: 2;
+            color: white;
+            text-decoration: none;
+        }
+        .bike-card:hover .whatsapp-overlay {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .bike-card .whatsapp-overlay:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(37, 211, 102, 0.5);
+        }
+        .about-us .about-image img {
+            border-radius: 100px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        /* Add these new styles */
+        .why-choose-us, .statistics {
+            background-color: #f8f9fa;
+        }
+        .why-choose-us .feature-card {
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transform: translateZ(0);
+            perspective: 1000px;
+        }
+        .why-choose-us .feature-card:hover {
+            transform: scale(1.1) translateZ(30px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        .why-choose-us .icon-wrapper {
+            font-size: 2.5rem;
+            color: #50DA2A;
+            margin-bottom: 1.5rem;
+        }
+        .statistics .stat-item {
+            padding: 1.5rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            max-width: 250px;
+            margin: 0 auto;
+        }
+        .statistics .stat-icon {
+            font-size: 2rem;
+            color: #50DA2A;
+            margin-bottom: 0.75rem;
+        }
+        .statistics .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 0.25rem;
+        }
+        .statistics .stat-label {
+            color: #666;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        .bike-card .bike-image {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        /* Add styles for How to Use section */
+        .how-to-use {
+            background-color: #1a1a1a;
+            color: white;
+            position: relative;
+        }
+        .how-to-use .step-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+        }
+        .how-to-use .step-icon {
+            background: #50DA2A;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .how-to-use .step-card:hover .step-icon {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(80, 218, 42, 0.3);
+        }
+        .how-to-use .step-content {
+            flex-grow: 1;
+        }
+        .how-to-use .step-content h3 {
+            color: white;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-right: 60px;
+        }
+        .how-to-use .step-number {
+            position: absolute;
+            right: 0;
+            top: 0;
+            font-size: 1rem;
+            background: #50DA2A;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+        }
+        .how-to-use .step-content p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0;
+        }
+        .how-to-use .bike-image {
+            max-width: 100%;
+            margin-top: 2rem;
+        }
+        .how-to-use .steps-container {
+            position: relative;
+            padding: 2rem 0;
+        }
+        .how-to-use .step-card:nth-child(odd) {
+            transform: translateX(-30px);
+        }
+        .how-to-use .step-card:nth-child(even) {
+            transform: translateX(30px);
+        }
+        .how-to-use .step-card:hover {
+            transform: translateX(0);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Add these new footer styles */
+        .footer {
+            background: #1a1a1a;
+        }
+        .footer .quick-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer .quick-links li {
+            margin-bottom: 1rem;
+        }
+        .footer .quick-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .footer .quick-links a:hover {
+            color: #50DA2A;
+        }
+        .footer .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .footer .contact-item {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        .footer .contact-item:hover {
+            color: #50DA2A;
+        }
+        .footer .location-info {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .footer .copyright {
+            background: #111;
+            padding: 1rem 0;
+            color: rgba(255, 255, 255, 0.7);
+        }
     </style>
 </head>
 <body>
@@ -506,166 +750,182 @@
     <section class="available-bikes py-5" style="background-color: #FFEBEB;">
         <div class="container">
             <div class="text-center mb-5">
-                <h6 class="text-success">AVAILABLE BIKE</h6>
+                <h6 class="text-success" style="font-family: 'Montserrat', 'Inter', sans-serif; font-size: 1.2rem;">AVAILABLE BIKE</h6>
                 <h2 class="display-5 fw-bold">Secure Your Ride Now And Book Your Bike For An<br>Adventure-Filled Experience!</h2>
             </div>
             <div class="row g-4">
                 <!-- Bike Card 1 -->
                 <div class="col-md-6 col-lg-3">
-                    <div class="card h-100">
-                        <img src="assets/bikes/hima450.webp" class="card-img-top" alt="Himalayan 450">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Himalayan 450</h5>
-                            <div class="d-flex justify-content-center gap-2 mb-3">
-                                <button class="btn btn-success rounded-pill">₹ 1599</button>
-                                <a href="tel:YOUR_NUMBER" class="btn btn-success rounded-pill">
-                                    <i class="bi bi-telephone-fill"></i>
-                                </a>
+                    <div class="bike-card">
+                        <a href="https://wa.me/918812848989" class="whatsapp-overlay">
+                            <i class="bi bi-whatsapp"></i>
+                        </a>
+                        <img src="assets/bikes/hima450.webp" class="bike-image" alt="Himalayan 450">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Himalayan 450</h5>
+                                <div class="d-flex justify-content-center gap-2 mb-3">
+                                    <button class="btn btn-success rounded-pill">₹ 1599</button>
+                                    <a href="tel:YOUR_NUMBER" class="btn btn-success rounded-pill">
+                                        <i class="bi bi-telephone-fill"></i>
+                                    </a>
+                                </div>
+                                <a href="#booking" class="btn btn-success rounded-pill w-100">BOOK NOW</a>
                             </div>
-                            <a href="#booking" class="btn btn-success rounded-pill w-100">BOOK NOW</a>
-                            <a href="https://wa.me/YOUR_NUMBER" class="btn-whatsapp-overlay">
-                                <i class="bi bi-whatsapp"></i>
-                            </a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Bike Card 2 -->
                 <div class="col-md-6 col-lg-3">
-                    <div class="card h-100">
-                        <img src="assets/bikes/hima411.webp" class="card-img-top" alt="Himalayan 411 BS6">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Himalayan 411 BS6</h5>
-                            <div class="d-flex justify-content-center gap-2 mb-3">
-                                <button class="btn btn-success rounded-pill">₹ 1299</button>
-                                <a href="tel:YOUR_NUMBER" class="btn btn-success rounded-pill">
-                                    <i class="bi bi-telephone-fill"></i>
-                                </a>
+                    <div class="bike-card">
+                        <a href="https://wa.me/918812848989" class="whatsapp-overlay">
+                            <i class="bi bi-whatsapp"></i>
+                        </a>
+                        <img src="assets/bikes/hima411.webp" class="bike-image" alt="Himalayan 411 BS6">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Himalayan 411 BS6</h5>
+                                <div class="d-flex justify-content-center gap-2 mb-3">
+                                    <button class="btn btn-success rounded-pill">₹ 1299</button>
+                                    <a href="tel:YOUR_NUMBER" class="btn btn-success rounded-pill">
+                                        <i class="bi bi-telephone-fill"></i>
+                                    </a>
+                                </div>
+                                <a href="#booking" class="btn btn-success rounded-pill w-100">BOOK NOW</a>
                             </div>
-                            <a href="#booking" class="btn btn-success rounded-pill w-100">BOOK NOW</a>
-                            <a href="https://wa.me/YOUR_NUMBER" class="btn-whatsapp-overlay">
-                                <i class="bi bi-whatsapp"></i>
-                            </a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Bike Card 3 -->
                 <div class="col-md-6 col-lg-3">
-                    <div class="card h-100">
-                        <img src="assets/bikes/clasic350.webp" class="card-img-top" alt="Classic Reborn 350">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Classic Reborn 350</h5>
-                            <div class="d-flex justify-content-center gap-2 mb-3">
-                                <button class="btn btn-success rounded-pill">₹ 1199</button>
-                                <a href="tel:YOUR_NUMBER" class="btn btn-success rounded-pill">
-                                    <i class="bi bi-telephone-fill"></i>
-                                </a>
+                    <div class="bike-card">
+                        <a href="https://wa.me/918812848989" class="whatsapp-overlay">
+                            <i class="bi bi-whatsapp"></i>
+                        </a>
+                        <img src="assets/bikes/clasic350.webp" class="bike-image" alt="Classic Reborn 350">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Classic Reborn 350</h5>
+                                <div class="d-flex justify-content-center gap-2 mb-3">
+                                    <button class="btn btn-success rounded-pill">₹ 1199</button>
+                                    <a href="tel:YOUR_NUMBER" class="btn btn-success rounded-pill">
+                                        <i class="bi bi-telephone-fill"></i>
+                                    </a>
+                                </div>
+                                <a href="#booking" class="btn btn-success rounded-pill w-100">BOOK NOW</a>
                             </div>
-                            <a href="#booking" class="btn btn-success rounded-pill w-100">BOOK NOW</a>
-                            <a href="https://wa.me/YOUR_NUMBER" class="btn-whatsapp-overlay">
-                                <i class="bi bi-whatsapp"></i>
-                            </a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Bike Card 4 -->
                 <div class="col-md-6 col-lg-3">
-                    <div class="card h-100">
-                        <img src="assets/bikes/meteor350.webp" class="card-img-top" alt="Meteor 350">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Meteor 350</h5>
-                            <div class="d-flex justify-content-center gap-2 mb-3">
-                                <button class="btn btn-success rounded-pill">₹ 1299</button>
-                                <a href="tel:YOUR_NUMBER" class="btn btn-success rounded-pill">
-                                    <i class="bi bi-telephone-fill"></i>
-                                </a>
+                    <div class="bike-card">
+                        <a href="https://wa.me/918812848989" class="whatsapp-overlay">
+                            <i class="bi bi-whatsapp"></i>
+                        </a>
+                        <img src="assets/bikes/meteor350.webp" class="bike-image" alt="Meteor 350">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Meteor 350</h5>
+                                <div class="d-flex justify-content-center gap-2 mb-3">
+                                    <button class="btn btn-success rounded-pill">₹ 1299</button>
+                                    <a href="tel:YOUR_NUMBER" class="btn btn-success rounded-pill">
+                                        <i class="bi bi-telephone-fill"></i>
+                                    </a>
+                                </div>
+                                <a href="#booking" class="btn btn-success rounded-pill w-100">BOOK NOW</a>
                             </div>
-                            <a href="#booking" class="btn btn-success rounded-pill w-100">BOOK NOW</a>
-                            <a href="https://wa.me/YOUR_NUMBER" class="btn-whatsapp-overlay">
-                                <i class="bi bi-whatsapp"></i>
-                            </a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Bike Card 5 -->
                 <div class="col-md-6 col-lg-3">
-                    <div class="card h-100">
-                        <img src="assets/bikes/xpulse.webp" class="card-img-top" alt="Xpulse 200 4V">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Xpulse 200 4V</h5>
-                            <div class="d-flex justify-content-center gap-2 mb-3">
-                                <button class="btn btn-success rounded-pill">₹ 1299</button>
-                                <a href="tel:YOUR_NUMBER" class="btn btn-success rounded-pill">
-                                    <i class="bi bi-telephone-fill"></i>
-                                </a>
+                    <div class="bike-card">
+                        <a href="https://wa.me/918812848989" class="whatsapp-overlay">
+                            <i class="bi bi-whatsapp"></i>
+                        </a>
+                        <img src="assets/bikes/xpulse.webp" class="bike-image" alt="Xpulse 200 4V">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Xpulse 200 4V</h5>
+                                <div class="d-flex justify-content-center gap-2 mb-3">
+                                    <button class="btn btn-success rounded-pill">₹ 1299</button>
+                                    <a href="tel:YOUR_NUMBER" class="btn btn-success rounded-pill">
+                                        <i class="bi bi-telephone-fill"></i>
+                                    </a>
+                                </div>
+                                <a href="#booking" class="btn btn-success rounded-pill w-100">BOOK NOW</a>
                             </div>
-                            <a href="#booking" class="btn btn-success rounded-pill w-100">BOOK NOW</a>
-                            <a href="https://wa.me/YOUR_NUMBER" class="btn-whatsapp-overlay">
-                                <i class="bi bi-whatsapp"></i>
-                            </a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Bike Card 6 -->
                 <div class="col-md-6 col-lg-3">
-                    <div class="card h-100">
-                        <img src="assets/bikes/yamaha-fz.webp" class="card-img-top" alt="Yamaha FZ V3">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Yamaha FZ V3</h5>
-                            <div class="d-flex justify-content-center gap-2 mb-3">
-                                <button class="btn btn-success rounded-pill">₹ 1199</button>
-                                <a href="tel:YOUR_NUMBER" class="btn btn-success rounded-pill">
-                                    <i class="bi bi-telephone-fill"></i>
-                                </a>
+                    <div class="bike-card">
+                        <a href="https://wa.me/918812848989" class="whatsapp-overlay">
+                            <i class="bi bi-whatsapp"></i>
+                        </a>
+                        <img src="assets/bikes/yamaha-fz.webp" class="bike-image" alt="Yamaha FZ V3">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Yamaha FZ V3</h5>
+                                <div class="d-flex justify-content-center gap-2 mb-3">
+                                    <button class="btn btn-success rounded-pill">₹ 1199</button>
+                                    <a href="tel:YOUR_NUMBER" class="btn btn-success rounded-pill">
+                                        <i class="bi bi-telephone-fill"></i>
+                                    </a>
+                                </div>
+                                <a href="#booking" class="btn btn-success rounded-pill w-100">BOOK NOW</a>
                             </div>
-                            <a href="#booking" class="btn btn-success rounded-pill w-100">BOOK NOW</a>
-                            <a href="https://wa.me/YOUR_NUMBER" class="btn-whatsapp-overlay">
-                                <i class="bi bi-whatsapp"></i>
-                            </a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Bike Card 7 -->
                 <div class="col-md-6 col-lg-3">
-                    <div class="card h-100">
-                        <img src="https://zoombike.softnue.in/assets/img/service/hunter350.webp" class="card-img-top" alt="Hunter 350">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Hunter 350</h5>
-                            <div class="d-flex justify-content-center gap-2 mb-3">
-                                <button class="btn btn-success rounded-pill">₹ 1199</button>
-                                <a href="tel:YOUR_NUMBER" class="btn btn-success rounded-pill">
-                                    <i class="bi bi-telephone-fill"></i>
-                                </a>
+                    <div class="bike-card">
+                        <a href="https://wa.me/918812848989" class="whatsapp-overlay">
+                            <i class="bi bi-whatsapp"></i>
+                        </a>
+                        <img src="https://zoombike.softnue.in/assets/img/service/hunter350.webp" class="bike-image" alt="Hunter 350">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Hunter 350</h5>
+                                <div class="d-flex justify-content-center gap-2 mb-3">
+                                    <button class="btn btn-success rounded-pill">₹ 1199</button>
+                                    <a href="tel:YOUR_NUMBER" class="btn btn-success rounded-pill">
+                                        <i class="bi bi-telephone-fill"></i>
+                                    </a>
+                                </div>
+                                <a href="#booking" class="btn btn-success rounded-pill w-100">BOOK NOW</a>
                             </div>
-                            <a href="#booking" class="btn btn-success rounded-pill w-100">BOOK NOW</a>
-                            <a href="https://wa.me/YOUR_NUMBER" class="btn-whatsapp-overlay">
-                                <i class="bi bi-whatsapp"></i>
-                            </a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Bike Card 8 -->
                 <div class="col-md-6 col-lg-3">
-                    <div class="card h-100">
-                        <img src="https://zoombike.softnue.in/assets/img/service/tvsntroq.webp" class="card-img-top" alt="TVS Ntorq">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">TVS Ntorq</h5>
-                            <div class="d-flex justify-content-center gap-2 mb-3">
-                                <button class="btn btn-success rounded-pill">₹ 999</button>
-                                <a href="tel:YOUR_NUMBER" class="btn btn-success rounded-pill">
-                                    <i class="bi bi-telephone-fill"></i>
-                                </a>
+                    <div class="bike-card">
+                        <a href="https://wa.me/918812848989" class="whatsapp-overlay">
+                            <i class="bi bi-whatsapp"></i>
+                        </a>
+                        <img src="https://zoombike.softnue.in/assets/img/service/tvsntroq.webp" class="bike-image" alt="TVS Ntorq">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">TVS Ntorq</h5>
+                                <div class="d-flex justify-content-center gap-2 mb-3">
+                                    <button class="btn btn-success rounded-pill">₹ 999</button>
+                                    <a href="tel:YOUR_NUMBER" class="btn btn-success rounded-pill">
+                                        <i class="bi bi-telephone-fill"></i>
+                                    </a>
+                                </div>
+                                <a href="#booking" class="btn btn-success rounded-pill w-100">BOOK NOW</a>
                             </div>
-                            <a href="#booking" class="btn btn-success rounded-pill w-100">BOOK NOW</a>
-                            <a href="https://wa.me/YOUR_NUMBER" class="btn-whatsapp-overlay">
-                                <i class="bi bi-whatsapp"></i>
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -676,40 +936,44 @@
 
                 <!-- Bike Card 9 -->
                 <div class="col-md-6 col-lg-3">
-                    <div class="card h-100">
-                        <img src="https://zoombike.softnue.in/assets/img/service/aprila.webp" class="card-img-top" alt="Aprilla 150">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Aprilla 150</h5>
-                            <div class="d-flex justify-content-center gap-2 mb-3">
-                                <button class="btn btn-success rounded-pill">₹ 699</button>
-                                <a href="tel:YOUR_NUMBER" class="btn btn-success rounded-pill">
-                                    <i class="bi bi-telephone-fill"></i>
-                                </a>
+                    <div class="bike-card">
+                        <a href="https://wa.me/918812848989" class="whatsapp-overlay">
+                            <i class="bi bi-whatsapp"></i>
+                        </a>
+                        <img src="https://zoombike.softnue.in/assets/img/service/aprila.webp" class="bike-image" alt="Aprilla 150">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Aprilla 150</h5>
+                                <div class="d-flex justify-content-center gap-2 mb-3">
+                                    <button class="btn btn-success rounded-pill">₹ 699</button>
+                                    <a href="tel:YOUR_NUMBER" class="btn btn-success rounded-pill">
+                                        <i class="bi bi-telephone-fill"></i>
+                                    </a>
+                                </div>
+                                <a href="#booking" class="btn btn-success rounded-pill w-100">BOOK NOW</a>
                             </div>
-                            <a href="#booking" class="btn btn-success rounded-pill w-100">BOOK NOW</a>
-                            <a href="https://wa.me/YOUR_NUMBER" class="btn-whatsapp-overlay">
-                                <i class="bi bi-whatsapp"></i>
-                            </a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Bike Card 10 -->
                 <div class="col-md-6 col-lg-3">
-                    <div class="card h-100">
-                        <img src="https://zoombike.softnue.in/assets/img/service/activa.webp" class="card-img-top" alt="Activa 6G">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Activa 6G</h5>
-                            <div class="d-flex justify-content-center gap-2 mb-3">
-                                <button class="btn btn-success rounded-pill">₹ 599</button>
-                                <a href="tel:YOUR_NUMBER" class="btn btn-success rounded-pill">
-                                    <i class="bi bi-telephone-fill"></i>
-                                </a>
+                    <div class="bike-card">
+                        <a href="https://wa.me/918812848989" class="whatsapp-overlay">
+                            <i class="bi bi-whatsapp"></i>
+                        </a>
+                        <img src="https://zoombike.softnue.in/assets/img/service/activa.webp" class="bike-image" alt="Activa 6G">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Activa 6G</h5>
+                                <div class="d-flex justify-content-center gap-2 mb-3">
+                                    <button class="btn btn-success rounded-pill">₹ 599</button>
+                                    <a href="tel:YOUR_NUMBER" class="btn btn-success rounded-pill">
+                                        <i class="bi bi-telephone-fill"></i>
+                                    </a>
+                                </div>
+                                <a href="#booking" class="btn btn-success rounded-pill w-100">BOOK NOW</a>
                             </div>
-                            <a href="#booking" class="btn btn-success rounded-pill w-100">BOOK NOW</a>
-                            <a href="https://wa.me/YOUR_NUMBER" class="btn-whatsapp-overlay">
-                                <i class="bi bi-whatsapp"></i>
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -921,19 +1185,21 @@
     <!-- CTA Section -->
     <section class="cta-section">
         <div class="container">
-            <div class="row align-items-center">
+            <div class="row">
                 <div class="col-lg-7">
                     <h2 class="display-4 fw-bold text-white mb-4">Book Your Bike It's Simple And Affordable</h2>
                     <p class="text-white mb-0">Experience the simplicity and affordability of booking your bike with us! Explore new adventures with ease. Call now to book!</p>
                 </div>
-                <div class="col-lg-5 text-lg-end text-center mt-4 mt-lg-0">
+                <div class="col-lg-5 text-center">
                     <div class="contact-info mb-4">
                         <i class="bi bi-headset"></i>
                         <span class="h3 text-white">+91 8812848989</span>
                     </div>
-                    <a href="#booking" class="btn btn-dark btn-lg rounded-pill">
-                        BOOK YOUR BIKE <i class="bi bi-arrow-right ms-2"></i>
-                    </a>
+                    <div class="mt-4">
+                        <a href="#booking" class="btn btn-dark btn-lg rounded-pill">
+                            BOOK YOUR BIKE <i class="bi bi-arrow-right ms-2"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -941,7 +1207,8 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="checker-border"></div>
+        <!-- Remove the checker border -->
+        <!-- <div class="checker-border"></div> -->
         <div class="container py-5">
             <div class="row g-4">
                 <div class="col-lg-4">
@@ -957,10 +1224,10 @@
                 <div class="col-lg-4">
                     <h5 class="text-white mb-4">Quick Links</h5>
                     <ul class="quick-links">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Terms & Condition</a></li>
-                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#"> Home</a></li>
+                        <li><a href="#"> About Us</a></li>
+                        <li><a href="#"> Terms & Condition</a></li>
+                        <li><a href="#"> Contact Us</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-4">
@@ -992,5 +1259,53 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="./js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let hasAnimated = false;
+
+            function animateValue(element, start, end, duration) {
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    const currentValue = Math.floor(progress * (end - start) + start);
+                    element.textContent = currentValue.toLocaleString();
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    } else {
+                        element.textContent = end.toLocaleString() + "+";
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
+
+            function startAnimation() {
+                if (hasAnimated) return;
+                
+                const statNumbers = document.querySelectorAll('.stat-number');
+                statNumbers.forEach(number => {
+                    const target = parseInt(number.getAttribute('data-target'));
+                    animateValue(number, 0, target, 2000);
+                });
+                
+                hasAnimated = true;
+            }
+
+            function checkScroll() {
+                const statsSection = document.querySelector('.statistics');
+                const rect = statsSection.getBoundingClientRect();
+                const isVisible = (rect.top <= window.innerHeight * 0.8) && (rect.bottom >= 0);
+                
+                if (isVisible) {
+                    startAnimation();
+                    window.removeEventListener('scroll', checkScroll);
+                }
+            }
+
+            window.addEventListener('scroll', checkScroll);
+            // Check initial state
+            checkScroll();
+        });
+    </script>
 </body>
 </html>
