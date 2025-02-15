@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zoom Bike - Bike Rentals Made Easy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./scss/styles.scss">
+    <style>
+        body {
+            font-family: 'Montserrat', 'Inter', sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6, .navbar-nav, .btn {
+            font-family: 'Inter', 'Montserrat', sans-serif;
+        }
+        /* Override Bootstrap's success color with higher specificity */
+        :root {
+            --bs-success: #50DA2A !important;
+            --bs-success-rgb: 80, 218, 42 !important;
+        }
+        .text-success,
+        .text-success:hover,
+        .text-success:focus,
+        h1.text-success,
+        h2.text-success,
+        h3.text-success,
+        h4.text-success,
+        h5.text-success,
+        h6.text-success,
+        span.text-success,
+        p.text-success {
+            color: #50DA2A !important;
+        }
+        .btn-success,
+        .btn.btn-success {
+            background-color: #50DA2A !important;
+            border-color: #50DA2A !important;
+            transition: all 0.3s ease !important;
+        }
+        .btn-success:hover,
+        .btn.btn-success:hover,
+        .btn-success:focus,
+        .btn.btn-success:focus,
+        .btn-success:active,
+        .btn.btn-success:active {
+            background-color: #000 !important;
+            border-color: #000 !important;
+            color: white !important;
+        }
+        .btn-outline-light {
+            transition: all 0.3s ease !important;
+        }
+        .btn-outline-light:hover {
+            background-color: #000 !important;
+            border-color: #000 !important;
+            color: white !important;
+        }
+        /* Add fixed height for carousel images */
+        #carouselExampleInterval .carousel-item {
+            position: relative;
+        }
+        #carouselExampleInterval .carousel-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+        #carouselExampleInterval .carousel-item img {
+            height: 600px;
+            object-fit: cover;
+            width: 100%;
+        }
+        #carouselExampleInterval .carousel-caption {
+            z-index: 2;
+            top: 50%;
+            transform: translateY(-50%);
+            bottom: auto;
+            padding: 0;
+        }
+        #carouselExampleInterval .carousel-caption h6 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: rgba(80, 218, 42, 0.1);
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+        }
+        #carouselExampleInterval .carousel-caption h1 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease 0.3s;
+        }
+        #carouselExampleInterval .carousel-caption .btn-wrapper {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease 0.6s;
+        }
+        #carouselExampleInterval .carousel-caption .btn {
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            margin: 0 0.5rem;
+        }
+        /* Active slide animations */
+        #carouselExampleInterval .carousel-item.active .carousel-caption h6,
+        #carouselExampleInterval .carousel-item.active .carousel-caption h1,
+        #carouselExampleInterval .carousel-item.active .carousel-caption .btn-wrapper {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Add styles for bike model dropdown */
+        .bike-select {
+            height: auto !important;
+            min-height: 38px;
+            padding: 8px 12px;
+            line-height: 1.5;
+        }
+        
+        .bike-select option,
+        .bike-select optgroup {
+            padding: 8px;
+            font-size: 14px;
+        }
+        
+        .bike-select optgroup {
+            max-height: 200px;
+        }
+        
+        /* Style for the dropdown when opened */
+        select.bike-select[size]:not([size="1"]) {
+            height: auto !important;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="assets/logo/logo.webp" height="40">
+            </a>
+            
+            <!-- Mobile Menu Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <!-- Main Menu -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Rental Terms & Condition</a>
+                    </li>
+                </ul>
+                
+                <!-- Book Button -->
+                <a href="#" class="btn btn-success rounded-pill book-btn">
+                    <i class="bi bi-bicycle"></i> BOOK A BIKE
+                </a>
+                
+                <!-- Three Dots Menu -->
+                <div class="nav-menu-wrapper">
+                    <button class="three-dot-menu" id="navMenuBtn">
+                        <i class="bi bi-three-dots-vertical"></i>
+                    </button>
+                    
+                    <div class="nav-popup-menu" id="navPopupMenu">
+                        <div class="popup-content">
+                            <div class="popup-section about-section">
+                                <h3>ABOUT US</h3>
+                                <p>ZoomBike is your partner for unforgettable adventures. Rent a bike, feel the thrill, and create your story on wheels!</p>
+                            </div>
+                            
+                            <div class="popup-section contact-section">
+                                <h3>CONTACT INFO</h3>
+                                <div class="contact-items">
+                                    <a href="mailto:zoombike.info@gmail.com" class="contact-item">
+                                        <i class="bi bi-envelope"></i>
+                                        <span>zoombike.info@gmail.com</span>
+                                    </a>
+                                    <a href="tel:+918812848989" class="contact-item">
+                                        <i class="bi bi-telephone"></i>
+                                        <span>+91 8812848989</span>
+                                    </a>
+                                    <div class="contact-item">
+                                        <i class="bi bi-geo-alt"></i>
+                                        <span>Opp North East public school, navadaya nagar,bye lane 7, patharkuchi road, basistha charali</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Add this after your navbar -->
+    <div class="menu-popup" id="menuPopup">
+        <div class="popup-header">
+            <img src="assets/images/logo.png" alt="ZOOM BIKE" class="popup-logo">
+            <button class="close-popup" id="closePopup">
+                <i class="bi bi-x"></i>
+            </button>
+        </div>
+        
+        <div class="popup-content">
+            <div class="popup-section">
+                <h3>ABOUT US</h3>
+                <p>ZoomBike is your partner for unforgettable adventures. Rent a bike, feel the thrill, and create your story on wheels!</p>
+            </div>
+            
+            <div class="popup-section">
+                <h3>CONTACT INFO</h3>
+                <div class="contact-item">
+                    <h4>Email</h4>
+                    <a href="mailto:zoombike.info@gmail.com">
+                        <i class="bi bi-envelope"></i>
+                        zoombike.info@gmail.com
+                    </a>
+                </div>
+                <div class="contact-item">
+                    <h4>Phone</h4>
+                    <a href="tel:+918812848989">
+                        <i class="bi bi-telephone"></i>
+                        +91 8812848989
+                    </a>
+                </div>
+                <div class="contact-item">
+                    <h4>Address</h4>
+                    <p>
+                        <i class="bi bi-geo-alt"></i>
+                        Opp North East public school, navadaya nagar,bye lane 7, patharkuchi road, basistha charali
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <!-- Slide 1 -->
+            <div class="carousel-item active" data-bs-interval="10000">
+                <img src="assets/hero/hero-1.webp" class="d-block w-100" alt="Hero Image 1">
+                <div class="carousel-caption">
+                    <h6 class="text-success mb-3">WELCOME TO ZOOMBIKE</h6>
+                    <h1 class="fw-bold">EXPLORE YOUR CITY: ZOOMBIKE'S SELF-RIDE RENTALS MAKE IT EASY AND FUN!</h1>
+                    <div class="btn-wrapper">
+                        <div class="d-flex justify-content-center gap-3">
+                            <a href="#booking" class="btn btn-success rounded-pill">Rent Now</a>
+                            <a href="#booking" class="btn btn-outline-light rounded-pill">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="carousel-item" data-bs-interval="2000">
+                <img src="assets/hero/hero-2.avif" class="d-block w-100" alt="Hero Image 2">
+                <div class="carousel-caption">
+                    <h6 class="text-success mb-3">ADVENTURE AWAITS</h6>
+                    <h1 class="fw-bold">DISCOVER FREEDOM ON TWO WHEELS WITH OUR PREMIUM BIKE RENTALS</h1>
+                    <div class="btn-wrapper">
+                        <div class="d-flex justify-content-center gap-3">
+                            <a href="#booking" class="btn btn-success rounded-pill">Rent Now</a>
+                            <a href="#booking" class="btn btn-outline-light rounded-pill">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="carousel-item">
+                <img src="assets/hero/hero-3.avif" class="d-block w-100" alt="Hero Image 3">
+                <div class="carousel-caption">
+                    <h6 class="text-success mb-3">RIDE WITH CONFIDENCE</h6>
+                    <h1 class="fw-bold">QUALITY BIKES, AFFORDABLE RATES, UNFORGETTABLE EXPERIENCES</h1>
+                    <div class="btn-wrapper">
+                        <div class="d-flex justify-content-center gap-3">
+                            <a href="#booking" class="btn btn-success rounded-pill">Rent Now</a>
+                            <a href="#booking" class="btn btn-outline-light rounded-pill">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <!-- Booking Form -->
+    <section id="booking" class="booking-section">
+        <div class="container">
+            <div class="booking-card">
+                <div class="d-flex justify-content-center">
+                    <h3 class="mb-4" style="font-weight: bold;">Book Your Ride <span style="color: #198754; font-weight: bold;">(Mandatory Documents: Original Driving Licence and Aadhar card)</span></h3>
+                </div>
+                <form id="bookingForm">
+                    <div class="row g-3">
+                        <div class="col-md-6 col-lg-3">
+                            <label style="font-weight: bold;">Travel Destination</label>
+                            <input type="text" class="form-control" placeholder="Travel Destination" required>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <label style="font-weight: bold;">Enter your Name</label>
+                            <input type="text" class="form-control" placeholder="Name" required>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <label style="font-weight: bold;">Enter Your Phone Number</label>
+                            <input type="tel" class="form-control" placeholder="Phone Number" required>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <label style="font-weight: bold;">Bike Model</label>
+                            <select class="form-select bike-select" required>
+                                <option value="" disabled selected style="font-weight: bold;">Choose Model</option>
+                                <optgroup label="Royal Enfield" style="font-weight: bold;">
+                                    <option value="himalayan-450" style="font-weight: bold;">Himalayan 450</option>
+                                    <option value="himalayan-411" style="font-weight: bold;">Himalayan 411 BS6</option>
+                                    <option value="classic-350" style="font-weight: bold;">Classic Reborn 350</option>
+                                    <option value="meteor-350" style="font-weight: bold;">Meteor 350</option>
+                                    <option value="hunter-350" style="font-weight: bold;">Hunter 350</option>
+                                </optgroup>
+                                <optgroup label="Adventure" style="font-weight: bold;">
+                                    <option value="xpulse" style="font-weight: bold;">Xpulse 200 4V</option>
+                                </optgroup>
+                                <optgroup label="Sports" style="font-weight: bold;">
+                                    <option value="yamaha-fz" style="font-weight: bold;">Yamaha FZ V3</option>
+                                    <option value="aprilla" style="font-weight: bold;">Aprilla 150</option>
+                                </optgroup>
+                                <optgroup label="Scooters" style="font-weight: bold;">
+                                    <option value="ntorq" style="font-weight: bold;">TVS Ntorq</option>
+                                    <option value="activa" style="font-weight: bold;">Activa 6G</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="col-md-6 col-lg-2">
+                           <label style="font-weight: bold;">Pick Up Date</label>
+                            <input type="date" class="form-control" required>
+                      </div>
+                        <div class="col-md-6 col-lg-2">
+                            <label style="font-weight: bold;">Drop Date</label>
+                            <input type="date" class="form-control" required>
+                        </div>
+                        <div class="col-md-6 col-lg-2">
+                            <div class="time-select-wrapper">
+                                <label style="font-weight: bold;">Pick Up Time</label>
+                                <select class="form-select time-select" required>
+                                    <option value="" disabled selected style="font-weight: bold;">00:00 AM</option>
+                                    <option value="00:00" style="font-weight: bold;">12:00 AM</option>
+                                    <option value="00:30" style="font-weight: bold;">12:30 AM</option>
+                                    <option value="01:00" style="font-weight: bold;">1:00 AM</option>
+                                    <option value="01:30" style="font-weight: bold;">1:30 AM</option>
+                                    <option value="02:00" style="font-weight: bold;">2:00 AM</option>
+                                    <option value="02:30" style="font-weight: bold;">2:30 AM</option>
+                                    <option value="03:00" style="font-weight: bold;">3:00 AM</option>
+                                    <option value="03:30" style="font-weight: bold;">3:30 AM</option>
+                                    <option value="04:00" style="font-weight: bold;">4:00 AM</option>
+                                    <option value="04:30" style="font-weight: bold;">4:30 AM</option>
+                                    <option value="05:00" style="font-weight: bold;">5:00 AM</option>
+                                    <option value="05:30" style="font-weight: bold;">5:30 AM</option>
+                                    <option value="06:00" style="font-weight: bold;">6:00 AM</option>
+                                    <option value="06:30" style="font-weight: bold;">6:30 AM</option>
+                                    <option value="07:00" style="font-weight: bold;">7:00 AM</option>
+                                    <option value="07:30" style="font-weight: bold;">7:30 AM</option>
+                                    <option value="08:00" style="font-weight: bold;">8:00 AM</option>
+                                    <option value="08:30" style="font-weight: bold;">8:30 AM</option>
+                                    <option value="09:00" style="font-weight: bold;">9:00 AM</option>
+                                    <option value="09:30" style="font-weight: bold;">9:30 AM</option>
+                                    <option value="10:00" style="font-weight: bold;">10:00 AM</option>
+                                    <option value="10:30" style="font-weight: bold;">10:30 AM</option>
+                                    <option value="11:00" style="font-weight: bold;">11:00 AM</option>
+                                    <option value="11:30" style="font-weight: bold;">11:30 AM</option>
+                                    <option value="12:00" style="font-weight: bold;">12:00 PM</option>
+                                    <option value="12:30" style="font-weight: bold;">12:30 PM</option>
+                                    <option value="13:00" style="font-weight: bold;">1:00 PM</option>
+                                    <option value="13:30" style="font-weight: bold;">1:30 PM</option>
+                                    <option value="14:00" style="font-weight: bold;">2:00 PM</option>
+                                    <option value="14:30" style="font-weight: bold;">2:30 PM</option>
+                                    <option value="15:00" style="font-weight: bold;">3:00 PM</option>
+                                    <option value="15:30" style="font-weight: bold;">3:30 PM</option>
+                                    <option value="16:00" style="font-weight: bold;">4:00 PM</option>
+                                    <option value="16:30" style="font-weight: bold;">4:30 PM</option>
+                                    <option value="17:00" style="font-weight: bold;">5:00 PM</option>
+                                    <option value="17:30" style="font-weight: bold;">5:30 PM</option>
+                                    <option value="18:00" style="font-weight: bold;">6:00 PM</option>
+                                    <option value="18:30" style="font-weight: bold;">6:30 PM</option>
+                                    <option value="19:00" style="font-weight: bold;">7:00 PM</option>
+                                    <option value="19:30" style="font-weight: bold;">7:30 PM</option>
+                                    <option value="20:00" style="font-weight: bold;">8:00 PM</option>
+                                    <option value="20:30" style="font-weight: bold;">8:30 PM</option>
+                                    <option value="21:00" style="font-weight: bold;">9:00 PM</option>
+                                    <option value="21:30" style="font-weight: bold;">9:30 PM</option>
+                                    <option value="22:00" style="font-weight: bold;">10:00 PM</option>
+                                    <option value="22:30" style="font-weight: bold;">10:30 PM</option>
+                                    <option value="23:00" style="font-weight: bold;">11:00 PM</option>
+                                    <option value="23:30" style="font-weight: bold;">11:30 PM</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-2">
+                            <div class="time-select-wrapper">
+                                <label style="font-weight: bold;">Drop Time</label>
+                                <select class="form-select time-select" required>
+                                    <option value="" disabled selected style="font-weight: bold;">00:00 AM</option>
+                                    <option value="00:00" style="font-weight: bold;">12:00 AM</option>
+                                    <option value="00:30" style="font-weight: bold;">12:30 AM</option>
+                                    <option value="01:00" style="font-weight: bold;">1:00 AM</option>
+                                    <option value="01:30" style="font-weight: bold;">1:30 AM</option>
+                                    <option value="02:00" style="font-weight: bold;">2:00 AM</option>
+                                    <option value="02:30" style="font-weight: bold;">2:30 AM</option>
+                                    <option value="03:00" style="font-weight: bold;">3:00 AM</option>
+                                    <option value="03:30" style="font-weight: bold;">3:30 AM</option>
+                                    <option value="04:00" style="font-weight: bold;">4:00 AM</option>
+                                    <option value="04:30" style="font-weight: bold;">4:30 AM</option>
+                                    <option value="05:00" style="font-weight: bold;">5:00 AM</option>
+                                    <option value="05:30" style="font-weight: bold;">5:30 AM</option>
+                                    <option value="06:00" style="font-weight: bold;">6:00 AM</option>
+                                    <option value="06:30" style="font-weight: bold;">6:30 AM</option>
+                                    <option value="07:00" style="font-weight: bold;">7:00 AM</option>
+                                    <option value="07:30" style="font-weight: bold;">7:30 AM</option>
+                                    <option value="08:00" style="font-weight: bold;">8:00 AM</option>
+                                    <option value="08:30" style="font-weight: bold;">8:30 AM</option>
+                                    <option value="09:00" style="font-weight: bold;">9:00 AM</option>
+                                    <option value="09:30" style="font-weight: bold;">9:30 AM</option>
+                                    <option value="10:00" style="font-weight: bold;">10:00 AM</option>
+                                    <option value="10:30" style="font-weight: bold;">10:30 AM</option>
+                                    <option value="11:00" style="font-weight: bold;">11:00 AM</option>
+                                    <option value="11:30" style="font-weight: bold;">11:30 AM</option>
+                                    <option value="12:00" style="font-weight: bold;">12:00 PM</option>
+                                    <option value="12:30" style="font-weight: bold;">12:30 PM</option>
+                                    <option value="13:00" style="font-weight: bold;">1:00 PM</option>
+                                    <option value="13:30" style="font-weight: bold;">1:30 PM</option>
+                                    <option value="14:00" style="font-weight: bold;">2:00 PM</option>
+                                    <option value="14:30" style="font-weight: bold;">2:30 PM</option>
+                                    <option value="15:00" style="font-weight: bold;">3:00 PM</option>
+                                    <option value="15:30" style="font-weight: bold;">3:30 PM</option>
+                                    <option value="16:00" style="font-weight: bold;">4:00 PM</option>
+                                    <option value="16:30" style="font-weight: bold;">4:30 PM</option>
+                                    <option value="17:00" style="font-weight: bold;">5:00 PM</option>
+                                    <option value="17:30" style="font-weight: bold;">5:30 PM</option>
+                                    <option value="18:00" style="font-weight: bold;">6:00 PM</option>
+                                    <option value="18:30" style="font-weight: bold;">6:30 PM</option>
+                                    <option value="19:00" style="font-weight: bold;">7:00 PM</option>
+                                    <option value="19:30" style="font-weight: bold;">7:30 PM</option>
+                                    <option value="20:00" style="font-weight: bold;">8:00 PM</option>
+                                    <option value="20:30" style="font-weight: bold;">8:30 PM</option>
+                                    <option value="21:00" style="font-weight: bold;">9:00 PM</option>
+                                    <option value="21:30" style="font-weight: bold;">9:30 PM</option>
+                                    <option value="22:00" style="font-weight: bold;">10:00 PM</option>
+                                    <option value="22:30" style="font-weight: bold;">10:30 PM</option>
+                                    <option value="23:00" style="font-weight: bold;">11:00 PM</option>
+                                    <option value="23:30" style="font-weight: bold;">11:30 PM</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-2">
+                            <div class="age-select-wrapper">
+                                <label style="font-weight: bold;">Are you 18+</label>
+                                <select class="form-select" required>
+                                    <option value="yes" style="font-weight: bold;">Yes</option>
+                                    <option value="no" style="font-weight: bold;">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-2">
+                            <label style="font-weight: bold;">&nbsp;</label>
+                            <button type="submit" class="btn btn-success w-100" style="font-weight: bold;">BOOK BIKE</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Available Bikes Section -->
+    <section class="available-bikes py-5" style="background-color: #FFEBEB;">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h6 class="text-success">AVAILABLE BIKE</h6>
+                <h2 class="display-5 fw-bold">Secure Your Ride Now And Book Your Bike For An<br>Adventure-Filled Experience!</h2>
+            </div>
+            <div class="row g-4">
+                <!-- Bike Card 1 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100">
+                        <img src="assets/bikes/hima450.webp" class="card-img-top" alt="Himalayan 450">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Himalayan 450</h5>
+                            <div class="d-flex justify-content-center gap-2 mb-3">
+                                <button class="btn btn-success rounded-pill">₹ 1599</button>
+                                <a href="tel:YOUR_NUMBER" class="btn btn-success rounded-pill">
+                                    <i class="bi bi-telephone-fill"></i>
+                                </a>
+                            </div>
+                            <a href="#booking" class="btn btn-success rounded-pill w-100">BOOK NOW</a>
+                            <a href="https://wa.me/YOUR_NUMBER" class="btn-whatsapp-overlay">
+                                <i class="bi bi-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bike Card 2 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100">
+                        <img src="assets/bikes/hima411.webp" class="card-img-top" alt="Himalayan 411 BS6">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Himalayan 411 BS6</h5>
+                            <div class="d-flex justify-content-center gap-2 mb-3">
+                                <button class="btn btn-success rounded-pill">₹ 1299</button>
+                                <a href="tel:YOUR_NUMBER" class="btn btn-success rounded-pill">
+                                    <i class="bi bi-telephone-fill"></i>
+                                </a>
+                            </div>
+                            <a href="#booking" class="btn btn-success rounded-pill w-100">BOOK NOW</a>
+                            <a href="https://wa.me/YOUR_NUMBER" class="btn-whatsapp-overlay">
+                                <i class="bi bi-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bike Card 3 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100">
+                        <img src="assets/bikes/clasic350.webp" class="card-img-top" alt="Classic Reborn 350">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Classic Reborn 350</h5>
+                            <div class="d-flex justify-content-center gap-2 mb-3">
+                                <button class="btn btn-success rounded-pill">₹ 1199</button>
+                                <a href="tel:YOUR_NUMBER" class="btn btn-success rounded-pill">
+                                    <i class="bi bi-telephone-fill"></i>
+                                </a>
+                            </div>
+                            <a href="#booking" class="btn btn-success rounded-pill w-100">BOOK NOW</a>
+                            <a href="https://wa.me/YOUR_NUMBER" class="btn-whatsapp-overlay">
+                                <i class="bi bi-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bike Card 4 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100">
+                        <img src="assets/bikes/meteor350.webp" class="card-img-top" alt="Meteor 350">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Meteor 350</h5>
+                            <div class="d-flex justify-content-center gap-2 mb-3">
+                                <button class="btn btn-success rounded-pill">₹ 1299</button>
+                                <a href="tel:YOUR_NUMBER" class="btn btn-success rounded-pill">
+                                    <i class="bi bi-telephone-fill"></i>
+                                </a>
+                            </div>
+                            <a href="#booking" class="btn btn-success rounded-pill w-100">BOOK NOW</a>
+                            <a href="https://wa.me/YOUR_NUMBER" class="btn-whatsapp-overlay">
+                                <i class="bi bi-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bike Card 5 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100">
+                        <img src="assets/bikes/xpulse.webp" class="card-img-top" alt="Xpulse 200 4V">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Xpulse 200 4V</h5>
+                            <div class="d-flex justify-content-center gap-2 mb-3">
+                                <button class="btn btn-success rounded-pill">₹ 1299</button>
+                                <a href="tel:YOUR_NUMBER" class="btn btn-success rounded-pill">
+                                    <i class="bi bi-telephone-fill"></i>
+                                </a>
+                            </div>
+                            <a href="#booking" class="btn btn-success rounded-pill w-100">BOOK NOW</a>
+                            <a href="https://wa.me/YOUR_NUMBER" class="btn-whatsapp-overlay">
+                                <i class="bi bi-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bike Card 6 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100">
+                        <img src="assets/bikes/yamaha-fz.webp" class="card-img-top" alt="Yamaha FZ V3">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Yamaha FZ V3</h5>
+                            <div class="d-flex justify-content-center gap-2 mb-3">
+                                <button class="btn btn-success rounded-pill">₹ 1199</button>
+                                <a href="tel:YOUR_NUMBER" class="btn btn-success rounded-pill">
+                                    <i class="bi bi-telephone-fill"></i>
+                                </a>
+                            </div>
+                            <a href="#booking" class="btn btn-success rounded-pill w-100">BOOK NOW</a>
+                            <a href="https://wa.me/YOUR_NUMBER" class="btn-whatsapp-overlay">
+                                <i class="bi bi-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bike Card 7 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100">
+                        <img src="https://zoombike.softnue.in/assets/img/service/hunter350.webp" class="card-img-top" alt="Hunter 350">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Hunter 350</h5>
+                            <div class="d-flex justify-content-center gap-2 mb-3">
+                                <button class="btn btn-success rounded-pill">₹ 1199</button>
+                                <a href="tel:YOUR_NUMBER" class="btn btn-success rounded-pill">
+                                    <i class="bi bi-telephone-fill"></i>
+                                </a>
+                            </div>
+                            <a href="#booking" class="btn btn-success rounded-pill w-100">BOOK NOW</a>
+                            <a href="https://wa.me/YOUR_NUMBER" class="btn-whatsapp-overlay">
+                                <i class="bi bi-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bike Card 8 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100">
+                        <img src="https://zoombike.softnue.in/assets/img/service/tvsntroq.webp" class="card-img-top" alt="TVS Ntorq">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">TVS Ntorq</h5>
+                            <div class="d-flex justify-content-center gap-2 mb-3">
+                                <button class="btn btn-success rounded-pill">₹ 999</button>
+                                <a href="tel:YOUR_NUMBER" class="btn btn-success rounded-pill">
+                                    <i class="bi bi-telephone-fill"></i>
+                                </a>
+                            </div>
+                            <a href="#booking" class="btn btn-success rounded-pill w-100">BOOK NOW</a>
+                            <a href="https://wa.me/YOUR_NUMBER" class="btn-whatsapp-overlay">
+                                <i class="bi bi-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Empty Column -->
+                <div class="col-md-6 col-lg-3">
+                </div>
+
+                <!-- Bike Card 9 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100">
+                        <img src="https://zoombike.softnue.in/assets/img/service/aprila.webp" class="card-img-top" alt="Aprilla 150">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Aprilla 150</h5>
+                            <div class="d-flex justify-content-center gap-2 mb-3">
+                                <button class="btn btn-success rounded-pill">₹ 699</button>
+                                <a href="tel:YOUR_NUMBER" class="btn btn-success rounded-pill">
+                                    <i class="bi bi-telephone-fill"></i>
+                                </a>
+                            </div>
+                            <a href="#booking" class="btn btn-success rounded-pill w-100">BOOK NOW</a>
+                            <a href="https://wa.me/YOUR_NUMBER" class="btn-whatsapp-overlay">
+                                <i class="bi bi-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bike Card 10 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100">
+                        <img src="https://zoombike.softnue.in/assets/img/service/activa.webp" class="card-img-top" alt="Activa 6G">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Activa 6G</h5>
+                            <div class="d-flex justify-content-center gap-2 mb-3">
+                                <button class="btn btn-success rounded-pill">₹ 599</button>
+                                <a href="tel:YOUR_NUMBER" class="btn btn-success rounded-pill">
+                                    <i class="bi bi-telephone-fill"></i>
+                                </a>
+                            </div>
+                            <a href="#booking" class="btn btn-success rounded-pill w-100">BOOK NOW</a>
+                            <a href="https://wa.me/YOUR_NUMBER" class="btn-whatsapp-overlay">
+                                <i class="bi bi-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Empty Column -->
+                <div class="col-md-6 col-lg-3">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section class="about-us py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="about-image">
+                        <img src="https://zoombike.softnue.in/assets/img/slider/aboutbike.webp" alt="Adventure Bike" class="img-fluid rounded shadow">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-content">
+                        <h6 class="text-success">ABOUT US</h6>
+                        <h2 class="display-5 fw-bold mb-4">Discover Adventure With<br>Our <span class="text-success">Self-Drive</span> Bike Rentals!</h2>
+                        <p class="text-muted lead">
+                            At ZoomBike, we're more than just a self-drive bike service. We're your ticket to freedom and adventure on two wheels. Our top-quality rentals cater to solo riders, groups, and families, ensuring everyone can explore at their own pace. Discover new destinations, create lasting memories, and embrace the thrill of the open road with ZoomBike as your trusted companion.
+                        </p>
+                        <a href="tel:YOUR_NUMBER" class="btn btn-success btn-lg rounded-pill">
+                            CALL NOW <i class="bi bi-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-choose-us py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h6 class="text-success">ZOOMBIKE</h6>
+                <h2 class="display-5 fw-bold">Why Choose Us</h2>
+                <div class="title-decoration"></div>
+            </div>
+            
+            <div class="row g-4">
+                <!-- Quality Bikes -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="feature-card text-center">
+                        <div class="icon-wrapper">
+                            <i class="bi bi-bicycle"></i>
+                        </div>
+                        <h3>Quality Bikes</h3>
+                        <p>We offer a fleet of well-maintained, reliable bikes, ensuring a smooth and safe ride for every adventure.</p>
+                    </div>
+                </div>
+
+                <!-- Freedom to Explore -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="feature-card text-center">
+                        <div class="icon-wrapper">
+                            <i class="bi bi-map"></i>
+                        </div>
+                        <h3>Freedom to Explore</h3>
+                        <p>With our self-drive option, you have the flexibility to explore at your own pace, discovering hidden gems and scenic routes.</p>
+                    </div>
+                </div>
+
+                <!-- Easy Rental Process -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="feature-card text-center">
+                        <div class="icon-wrapper">
+                            <i class="bi bi-hand-thumbs-up"></i>
+                        </div>
+                        <h3>Easy Rental Process</h3>
+                        <p>Our hassle-free rental process ensures that you can get on the road quickly, focusing on the journey ahead.</p>
+                    </div>
+                </div>
+
+                <!-- Customer Satisfaction -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="feature-card text-center">
+                        <div class="icon-wrapper">
+                            <i class="bi bi-people"></i>
+                        </div>
+                        <h3>Customer Satisfaction</h3>
+                        <p>We prioritize your satisfaction, providing excellent service and support throughout your rental experience.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="statistics py-5">
+        <div class="container">
+            <div class="stats-wrapper">
+                <div class="row g-4">
+                    <!-- Available Bikes -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="stat-item text-center">
+                            <div class="stat-icon">
+                                <i class="bi bi-bicycle"></i>
+                            </div>
+                            <div class="stat-number" data-target="50">0</div>
+                            <div class="stat-label">+ Available Bike</div>
+                        </div>
+                    </div>
+
+                    <!-- Happy Clients -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="stat-item text-center">
+                            <div class="stat-icon">
+                                <i class="bi bi-people-fill"></i>
+                            </div>
+                            <div class="stat-number" data-target="1000">0</div>
+                            <div class="stat-label">+ Happy Clients</div>
+                        </div>
+                    </div>
+
+                    <!-- Rentals -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="stat-item text-center">
+                            <div class="stat-icon">
+                                <i class="bi bi-key-fill"></i>
+                            </div>
+                            <div class="stat-number" data-target="2000">0</div>
+                            <div class="stat-label">+ Rentals</div>
+                        </div>
+                    </div>
+
+                    <!-- Miles Covered -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="stat-item text-center">
+                            <div class="stat-icon">
+                                <i class="bi bi-speedometer2"></i>
+                            </div>
+                            <div class="stat-number" data-target="100000">0</div>
+                            <div class="stat-label">+ Miles Covered</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Use Section -->
+    <section class="how-to-use py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-5">
+                    <h6 class="text-warning">HOW TO USE?</h6>
+                    <h2 class="display-5 fw-bold text-white mb-4">
+                        Unlock Adventure With 
+                        <span class="text-success">ZoomBike</span> Your Limitless Journey Awaits!
+                    </h2>
+                    <img src="https://zoombike.softnue.in/assets/img/choose/bike.png" alt="Bike" class="img-fluid bike-image">
+                </div>
+                <div class="col-lg-7">
+                    <div class="steps-container">
+                        <!-- Step 1 -->
+                        <div class="step-card">
+                            <div class="step-icon">
+                                <i class="bi bi-bicycle"></i>
+                            </div>
+                            <div class="step-content">
+                                <h3>Select Rental Bike <span class="step-number">01</span></h3>
+                                <p>Explore our wide range of Bike and choose the one that best suits your needs!</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="step-card">
+                            <div class="step-icon">
+                                <i class="bi bi-bookmark-check"></i>
+                            </div>
+                            <div class="step-content">
+                                <h3>Book your bike and pick it up! <span class="step-number">02</span></h3>
+                                <p>To reserve your bike, just click "Book Now." Then, find the pickup location and choose your bike.</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="step-card">
+                            <div class="step-icon">
+                                <i class="bi bi-map"></i>
+                            </div>
+                            <div class="step-content">
+                                <h3>Ride Anywhere <span class="step-number">03</span></h3>
+                                <p>We do not have kms limit.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WhatsApp & Call Buttons -->
+    <div class="floating-buttons">
+        <a href="https://wa.me/YOUR_NUMBER" class="btn-whatsapp">
+            <i class="bi bi-whatsapp"></i>
+        </a>
+        <a href="tel:YOUR_NUMBER" class="btn-call">
+            <i class="bi bi-telephone-fill"></i>
+        </a>
+    </div>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <h2 class="display-4 fw-bold text-white mb-4">Book Your Bike It's Simple And Affordable</h2>
+                    <p class="text-white mb-0">Experience the simplicity and affordability of booking your bike with us! Explore new adventures with ease. Call now to book!</p>
+                </div>
+                <div class="col-lg-5 text-lg-end text-center mt-4 mt-lg-0">
+                    <div class="contact-info mb-4">
+                        <i class="bi bi-headset"></i>
+                        <span class="h3 text-white">+91 8812848989</span>
+                    </div>
+                    <a href="#booking" class="btn btn-dark btn-lg rounded-pill">
+                        BOOK YOUR BIKE <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="checker-border"></div>
+        <div class="container py-5">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <img src="https://zoombike.softnue.in/assets/img/logo/logof.webp" alt="Zoom Bike" height="40" class="mb-4">
+                    <p class="text-white-50">
+                        ZoomBike offers top-quality rentals for solo riders, groups, and families, providing freedom and adventure to explore new destinations at leisure.
+                    </p>
+                    <div class="location-info">
+                        <i class="bi bi-geo-alt-fill text-warning"></i>
+                        <span>Opp North East public school, navadaya nagar,bye lane 7, patharkuchi road, basistha charali</span>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="text-white mb-4">Quick Links</h5>
+                    <ul class="quick-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Terms & Condition</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="text-white mb-4">Contact Us On</h5>
+                    <div class="contact-links">
+                        <a href="https://wa.me/918812848989" class="contact-item">
+                            <i class="bi bi-whatsapp"></i>
+                            <span>+91 8812848989</span>
+                        </a>
+                        <a href="tel:+918812848989" class="contact-item">
+                            <i class="bi bi-telephone-fill"></i>
+                            <span>+91 8812848989</span>
+                        </a>
+                        <a href="mailto:zoombike.info@gmail.com" class="contact-item">
+                            <i class="bi bi-envelope-fill"></i>
+                            <span>zoombike.info@gmail.com</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <div class="container">
+                <p class="mb-0">© Copyright 2025 <span class="text-success">Zoombike</span> All Rights Reserved.Designed by <span class="text-warning">SOFTNUE</span></p>
+            </div>
+            <div class="diagonal-section"></div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="./js/main.js"></script>
+</body>
+</html>
